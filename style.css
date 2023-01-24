@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  display: flex;
+  background-color: aqua;
+  position: relative;
+}
+:root {
+  --cell-size: 150px;
+  --ix-size: calc(var(--cell-size) * 0.9);
+}
+
+.board {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  background-color: white;
+  place-content: center;
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: whitesmoke;
+  border: 3px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.ix::after,
+.ix::before {
+  background-color: black;
+}
+.ix-turn > .cell:not(.ix):not(.ox):hover::after,
+.ix-turn > .cell:not(.ix):not(.ox):hover::before {
+  background-color: rgb(161, 158, 158);
+}
+
+.ix::after,
+.ix::before,
+.ix-turn > .cell:not(.ix):not(.ox):hover::after,
+.ix-turn > .cell:not(.ix):not(.ox):hover::before {
+  content: " ";
+  width: calc(var(--ix-size) * 0.15);
+  height: var(--ix-size);
+  position: absolute;
+}
+
+.ix::after,
+.ix-turn > .cell:not(.ix):not(.ox):hover:after {
+  transform: rotate(45deg);
+}
+
+.ix::before,
+.ix-turn > .cell:not(.ix):not(.ox):hover::before {
+  transform: rotate(-45deg);
+}
+.ox::before {
+  background-color: black;
+}
+
+.ox-turn > .cell:not(.ix):not(.ox):hover::before {
+  background-color: rgb(161, 158, 158);
+}
+
+.ox::before,
+.ox-turn > .cell:not(.ix):not(.ox):hover::before {
+  height: calc(var(--ix-size) * 0.9);
+  width: calc(var(--ix-size) * 0.9);
+  content: "";
+  border-radius: 70px;
+  position: absolute;
+}
+.ox::after,
+.ox-turn > .cell:not(.ix):not(.ox):hover::after {
+  height: calc(var(--ix-size) * 0.6);
+  width: calc(var(--ix-size) * 0.6);
+  background-color: white;
+  content: " ";
+  position: absolute;
+  border-radius: 50px;
+}
+
+.cell:nth-child(-n + 3) {
+  border-top: none;
+}
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+.cell.cell:nth-child(n + 7) {
+  border-bottom: none;
+}
+
+.message-window {
+  background-color: black;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 86%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  gap: 25px;
+  font-family: sans-serif;
+}
+
+.message-window.shown {
+  visibility: visible;
+}
+.winner {
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.winner::after {
+  display: inline-block;
+  content: " ";
+  background: url(/img/389px-Trophy_cup.svg.png);
+  width: 69px;
+  height: 79px;
+  background-size: 100%;
+  margin-left: 6px;
+}
+.reset {
+  background-color: black;
+  width: 170px;
+  height: 55px;
+  font-size: 18px;
+  border-radius: 15px;
+  font-weight: bold;
+  color: white;
+  border: 2px solid white;
+}
+
+.reset:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid white;
+}
