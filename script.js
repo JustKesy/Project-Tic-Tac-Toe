@@ -13,21 +13,71 @@ const gameBoard = (() => {
   let xTurn = true;
   const board = document.querySelector(".board");
 
+  const resetBtn = document.querySelector(".reset");
+
+  const newGameBtn = document.querySelector(".new-game");
+
   const cells = document.querySelectorAll(".cell");
+
   const cellsArr = [...cells];
+
   const message = document.querySelector(".message-window");
-  const xComb = [];
-  const oxComb = [];
+
+  const winMessage = document.querySelector(".winner");
+
+  let poensX = document.querySelector(".poens-x");
+
+  let poensOx = document.querySelector(".poens-ox");
+
+  let poenX = 0;
+  let poenOx = 0;
+  poensX.textContent = poenX;
+  poensOx.textContent = poenOx;
+  let xComb = [];
+  let oxComb = [];
+
+  const reset = () => {
+    xComb = [];
+    oxComb = [];
+    message.classList.remove("shown");
+    for (let i = 0; i < cellsArr.length; i++) {
+      cellsArr[i].removeEventListener("click", setMarker);
+      cellsArr[i].setAttribute("class", "cell");
+    }
+    events();
+  };
+
+  const newGame = () => {
+    reset();
+    poenX = 0;
+    poenOx = 0;
+    poensX.textContent = poenX;
+    poensOx.textContent = poenOx;
+  };
+
+  const tied = () => {
+    return cellsArr.every((cell) => {
+      return cell.classList.contains("ix") || cell.classList.contains("ox");
+    });
+  };
+
   const checkWin = () => {
-    if (xTurn == true) {
+    if (tied()) {
+      message.classList.add("shown");
+      winMessage.textContent = "TIED! Move your hands  from -->";
+    } else if (xTurn == true) {
       if (winComb.some((item) => item.every((num) => xComb.includes(num)))) {
         message.classList.add("shown");
+        winMessage.textContent = "'X' has WIN! ";
+        poensX.textContent = ++poenX;
       } else {
         return;
       }
     } else if (xTurn == false) {
       if (winComb.some((item) => item.every((num) => oxComb.includes(num)))) {
         message.classList.add("shown");
+        winMessage.textContent = "'OX' has WIN! ";
+        poensOx.textContent = ++poenOx;
       } else {
         return;
       }
@@ -72,6 +122,9 @@ const gameBoard = (() => {
       cellsArr[i].setAttribute("data-key", i);
     }
   };
+
+  resetBtn.addEventListener("click", reset);
+  newGameBtn.addEventListener("click", newGame);
 
   const game = () => {
     start();

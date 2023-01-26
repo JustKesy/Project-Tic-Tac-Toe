@@ -10,7 +10,7 @@ body {
   position: relative;
 }
 :root {
-  --cell-size: 150px;
+  --cell-size: 180px;
   --ix-size: calc(var(--cell-size) * 0.9);
 }
 
@@ -63,7 +63,7 @@ body {
   transform: rotate(-45deg);
 }
 .ox::before {
-  background-color: black;
+  background-color: rgb(218, 13, 13);
 }
 
 .ox-turn > .cell:not(.ix):not(.ox):hover::before {
@@ -125,6 +125,7 @@ body {
   color: white;
   font-size: 50px;
   font-weight: bold;
+  padding-left: 80px;
 }
 
 .winner::after {
@@ -136,7 +137,7 @@ body {
   background-size: 100%;
   margin-left: 6px;
 }
-.reset {
+.btn {
   background-color: black;
   width: 170px;
   height: 55px;
@@ -145,9 +146,47 @@ body {
   font-weight: bold;
   color: white;
   border: 2px solid white;
+  margin-top: 30px;
 }
 
-.reset:hover {
+.btn:hover {
   background-color: white;
   color: black;
+}
+
+.btn.new-game {
+  background-color: #421515;
+}
+
+.players {
+  display: flex;
+  gap: 130px;
+  margin-top: 60px;
+}
+.player-x,
+.player-ox {
+  width: 230px;
+  height: 230px;
+  background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  border-radius: 50px;
+}
+
+.player-text {
+  margin-top: 25px;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.poens {
+  font-weight: bold;
+  font-size: 90px;
+}
+
+.poens.red {
+  color: red;
 }
